@@ -29,7 +29,7 @@ public class MenuManager : MonoBehaviour
     {
         if (currentSpaceshipPriview != null)
         {
-            currentSpaceshipPriview.transform.Rotate(0,rotationSpaceshipSpeed * Time.deltaTime, 0);
+            currentSpaceshipPriview.transform.Rotate(0, rotationSpaceshipSpeed * Time.deltaTime, 0);
         }
     }
 
@@ -42,7 +42,7 @@ public class MenuManager : MonoBehaviour
 
         GameObject newSpaceship = GameManager.Instnace.currentSpaceship;
         Vector3 startRotationVector = new Vector3(0, 180, 0);
-        currentSpaceshipPriview = Instantiate(newSpaceship,Vector3.zero,Quaternion.Euler(startRotationVector));
+        currentSpaceshipPriview = Instantiate(newSpaceship, Vector3.zero, Quaternion.Euler(startRotationVector));
     }
 
     private void InitShopButtons()
@@ -51,10 +51,10 @@ public class MenuManager : MonoBehaviour
         foreach (Transform t in transformButtonParent)
         {
             int currentIndex = i;
-            Texture2D texture = GameManager.Instnace.spaceshipTextures[currentIndex];
-            Rect newRect = new Rect(0, 0, texture.width, texture.height);
-            Sprite newSprite = Sprite.Create(texture, newRect,new Vector2(0.5f,0.5f));
-            t.GetComponent<Image>().sprite = newSprite;
+            //Texture2D texture = GameManager.Instnace.spaceshipTextures[currentIndex];
+            //Rect newRect = new Rect(0, 0, texture.width, texture.height);
+            //Sprite newSprite = Sprite.Create(texture, newRect, new Vector2(0.5f, 0.5f));
+            //t.GetComponent<Image>().sprite = newSprite;
 
             Button button = t.GetComponent<Button>();
             button.onClick.AddListener(() => OnShopButtonClicked(currentIndex));
@@ -110,7 +110,7 @@ public class MenuManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
 
-            Vector3 currentPos = Vector3.Lerp(oldPos,newPos,elapsed/trasitionTime);
+            Vector3 currentPos = Vector3.Lerp(oldPos, newPos, elapsed / trasitionTime);
             menuContainer.anchoredPosition3D = currentPos;
             yield return null;
         }
@@ -120,7 +120,7 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log(index);
         SceneManager.LoadScene("Level_1");
-        
+
     }
 
     public void OnPlayButtonClicked()
