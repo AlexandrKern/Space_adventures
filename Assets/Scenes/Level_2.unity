@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: cb4b6d1bf9c978042b7931378995b776, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9e07b5f1ebeb2764ea80a163086f4ba7, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -7327,8 +7327,8 @@ MonoBehaviour:
   - {fileID: 5747871475649251690, guid: 283ee53603f42834da2534277e12c6e1, type: 3}
   asteroidSpawnDistace: 100
   spawnTime: 1
-  asteroidsToFinish: 3
-  speedIncrease: 5
+  asteroidsToFinish: 6
+  speedIncrease: 10
   inGameManager: {fileID: 1890520706}
   minX: 0
   maxX: 0

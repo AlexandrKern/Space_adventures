@@ -11,6 +11,9 @@ public class InGameManager : MonoBehaviour
 
     public GameObject deathScreen;
     public GameObject pauseScreen;
+    public GameObject levelCompleteScreen;
+
+    public Text AsteroiToKillText;
 
 
     public void ChangeHealthBar(float currentHealth,float maxHealth)
@@ -80,6 +83,17 @@ public class InGameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         deathScreen.SetActive(true);
+    }
+
+    public void ChangeAsteroidKillCount(int toKill)
+    {
+        AsteroiToKillText.text = toKill.ToString();
+    }
+
+    public void OnLevelCompleteMenu()
+    {
+        Time.timeScale = 0;
+        levelCompleteScreen.SetActive(true);
     }
 
 }

@@ -68,7 +68,7 @@ public class AsteroidController : MonoBehaviour
     public void DestroyAsteroid()
     {
         Data.Instance.AddGold();
-        AsteroidManager.Instnace.aliveAsteroids.Remove(gameObject);
+        AsteroidManager.Instnace.OnAsteroidKill(gameObject);
         Destroy(gameObject);
     }
 
@@ -79,7 +79,10 @@ public class AsteroidController : MonoBehaviour
             other.GetComponent<PlayerController>().OnAsteroidImpact();
             DestroyAsteroid();
         }
+    }
 
-        
+    public void IncreaseSpeed(float speedIncrease)
+    {
+        moveSpeed += speedIncrease;
     }
 }
