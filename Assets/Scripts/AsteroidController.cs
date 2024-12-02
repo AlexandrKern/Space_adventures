@@ -17,6 +17,8 @@ public class AsteroidController : MonoBehaviour
     private Material baseMaterial;
     private Renderer[] renderers;
 
+    public ParticleSystem explosion;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -69,6 +71,8 @@ public class AsteroidController : MonoBehaviour
     {
         Data.Instance.AddGold();
         AsteroidManager.Instnace.OnAsteroidKill(gameObject);
+        Instantiate(explosion,transform.position,Quaternion.identity);
+        AudioManager.Instance.PlaySFX("Explosion");
         Destroy(gameObject);
     }
 

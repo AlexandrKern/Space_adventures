@@ -14,7 +14,6 @@ public class Data : MonoBehaviour
         {
             Instance = this;
             Load();
-            ResetValues();
         }
     }
 
