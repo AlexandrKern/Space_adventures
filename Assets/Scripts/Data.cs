@@ -14,8 +14,7 @@ public class Data : MonoBehaviour
         {
             Instance = this;
             Load();
-            //saveInfo.levelIsComplited = -1;
-            //Save();
+            ResetValues();
         }
     }
 
@@ -39,6 +38,38 @@ public class Data : MonoBehaviour
             saveInfo = new SaveInfo();
             Save();
         }
+    }
+
+    private void ResetValues()
+    {
+        saveInfo.gold = 0;
+        saveInfo.levelIsComplited = -1;
+        saveInfo.ownedSpaceship = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        Save();
+    }
+
+    public bool IsSpaceshipOwned(int index)
+    {
+        if (saveInfo.ownedSpaceship[index] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void PrchaseSpaceship(int index)
+    {
+        saveInfo.ownedSpaceship[index] = 1;
+        Save();
+    }
+
+    public void RemoveGold(int amt)
+    {
+        saveInfo.gold -= amt;
+        Save();
     }
 
     public void CompletedNextLevel()
