@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour
     public Transform levelContainer;
     public RectTransform menuContainer;
     private int screenWidth;
+    private int screenHeight;
     public float trasitionTime;
 
     public Transform transformButtonParent;
@@ -23,6 +24,7 @@ public class MenuManager : MonoBehaviour
     {
         InitButtonLevels();
         screenWidth = Screen.width;
+        screenHeight = Screen.height;
         InitShopButtons();
         UpdateSpaceshipPriview();
         UpdateGoldText();
@@ -144,6 +146,10 @@ public class MenuManager : MonoBehaviour
         {
             newPos = new Vector3(screenWidth, 0, 0);
         }
+        else if (menuType == MenuType.Audio)
+        {
+            newPos = new Vector3(0, screenHeight, 0);
+        }
         else
         {
             newPos = Vector3.zero;
@@ -190,9 +196,14 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Μενώ");
         ChangeMenu(MenuType.Main);
     }
-    public void OnShopMenuButtonClecked()
+    public void OnShopMenuButtonClicked()
     {
         ChangeMenu(MenuType.Shop);
+    }
+
+    public void OnAudioMenuButtonClicked()
+    {
+        ChangeMenu (MenuType.Audio);
     }
 
     public void OnNextMapButtonClicked()
@@ -208,7 +219,8 @@ public class MenuManager : MonoBehaviour
     {
         Main,
         Level,
-        Shop
+        Shop,
+        Audio
     }
 
 
