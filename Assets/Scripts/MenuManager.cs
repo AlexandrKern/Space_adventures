@@ -62,14 +62,48 @@ public class MenuManager : MonoBehaviour
             Button button = t.GetComponent<Button>();
             button.onClick.AddListener(() => OnShopButtonClicked(currentIndex));
 
+            if (Data.Instance.IsSpaceshipOwned(currentIndex))
+            {
+                t.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                Text btnText = t.GetComponentInChildren<Text>();
+                btnText.text = GameManager.Instnace.spaceshipPrice[currentIndex].ToString();
+                button.image.color = Color.black;
+            }
+
             i++;
         }
     }
 
     private void OnShopButtonClicked(int index)
     {
-        GameManager.Instnace.ChangeCurrentSpaceship(index);
-        UpdateSpaceshipPriview();
+        if (Data.Instance.IsSpaceshipOwned(index))
+        {
+            GameManager.Instnace.ChangeCurrentSpaceship(index);
+            UpdateSpaceshipPriview();
+        }
+        else
+        {
+            int constOfSpaceship = GameManager.Instnace.spaceshipPrice[index];
+            int currentGold = Data.Instance.GetGold();
+            if (currentGold >= constOfSpaceship)
+            {
+
+                Data.Instance.RemoveGold(constOfSpaceship);
+                Data.Instance.PrchaseSpaceship(index);
+                Transform btnClicked = transformButtonParent.GetChild(index);
+                btnClicked.GetChild(0).gameObject.SetActive(false);
+                Button button = btnClicked.GetComponent<Button>();
+                button.image.color = Color.white;
+                GameManager.Instnace.ChangeCurrentSpaceship(index);
+                UpdateSpaceshipPriview();
+                UpdateGoldText();
+            }
+        
+        }
+       
     }
 
     private void InitButtonLevels()
