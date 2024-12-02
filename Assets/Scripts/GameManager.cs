@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject currentSpaceship => spaceshipPrefubs[currentSpaceshipIndex];
 
+    public int curentLevelIndex = 0;
+
    
 
     private void Awake()

@@ -14,6 +14,8 @@ public class Data : MonoBehaviour
         {
             Instance = this;
             Load();
+            //saveInfo.levelIsComplited = -1;
+            //Save();
         }
     }
 
@@ -37,6 +39,17 @@ public class Data : MonoBehaviour
             saveInfo = new SaveInfo();
             Save();
         }
+    }
+
+    public void CompletedNextLevel()
+    {
+        saveInfo.levelIsComplited++;
+        Save();
+    }
+
+    public int GetLevelCompleted()
+    {
+        return saveInfo.levelIsComplited;
     }
 
     public void AddGold()

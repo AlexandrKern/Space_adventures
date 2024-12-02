@@ -74,12 +74,27 @@ public class MenuManager : MonoBehaviour
 
     private void InitButtonLevels()
     {
+        int lastLevelComplited = Data.Instance.GetLevelCompleted();
         int i = 0;
         foreach (Transform t in levelContainer)
         {
             int currentIndex = i;
             Button button = t.GetComponent<Button>();
-            button.onClick.AddListener(() => OnLevelSelect(currentIndex));
+            if (currentIndex <= lastLevelComplited)
+            {
+                button.onClick.AddListener(() => OnLevelSelect(currentIndex));
+                button.image.color = Color.white;
+            }
+            else if (currentIndex == lastLevelComplited + 1)
+            {
+                button.onClick.AddListener(() => OnLevelSelect(currentIndex));
+                button.image.color = Color.green;
+            }
+            else
+            {
+                button.interactable = false;
+                button.image.color = Color.gray;
+            }
             i++;
         }
     }
@@ -121,8 +136,12 @@ public class MenuManager : MonoBehaviour
 
     private void OnLevelSelect(int index)
     {
-        Debug.Log(index);
-        SceneManager.LoadScene("Level_1");
+        GameManager.Instnace.curentLevelIndex = index;
+
+        int levelIndex = index + 1;
+        string levelName = "Level_" + levelIndex.ToString();
+        Debug.Log(levelIndex);
+        SceneManager.LoadScene(levelName);
 
     }
 
