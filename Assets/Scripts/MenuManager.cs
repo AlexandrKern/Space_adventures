@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
 
     public float rotationSpaceshipSpeed = 10;
 
+    public Text goldText;
+
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class MenuManager : MonoBehaviour
         screenWidth = Screen.width;
         InitShopButtons();
         UpdateSpaceshipPriview();
+        UpdateGoldText();
     }
 
     private void Update()
@@ -144,6 +147,10 @@ public class MenuManager : MonoBehaviour
         Debug.Log("Следующая карта");
     }
 
+    private void UpdateGoldText()
+    {
+        goldText.text = Data.Instance.GetGold().ToString();
+    }
     private enum MenuType
     {
         Main,
