@@ -67,6 +67,7 @@ public class AsteroidController : MonoBehaviour
 
     public void DestroyAsteroid()
     {
+        Data.Instance.AddGold();
         AsteroidManager.Instnace.aliveAsteroids.Remove(gameObject);
         Destroy(gameObject);
     }
@@ -76,8 +77,9 @@ public class AsteroidController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().OnAsteroidImpact();
+            DestroyAsteroid();
         }
 
-        DestroyAsteroid();
+        
     }
 }
