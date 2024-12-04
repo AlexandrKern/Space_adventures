@@ -7,6 +7,7 @@ public class Data : MonoBehaviour
 {
     public static Data Instance;
     private string filePath;
+    private int currerntGold;
     private void Awake()
     {
         filePath = Path.Combine(Application.persistentDataPath, "saveData.json");
@@ -14,6 +15,7 @@ public class Data : MonoBehaviour
         {
             Instance = this;
             Load();
+            //ResetValues();
         }
     }
 
@@ -23,6 +25,7 @@ public class Data : MonoBehaviour
     {
         string serializeObj = Serialize(saveInfo);
         File.WriteAllText(filePath, serializeObj);
+        Debug.Log("Сохранился");
     }
 
     private void Load()
@@ -42,7 +45,9 @@ public class Data : MonoBehaviour
     private void ResetValues()
     {
         saveInfo.gold = 0;
-        saveInfo.levelIsComplited = -1;
+        saveInfo.levelIsComplitedMapOne = -1;
+        saveInfo.levelIsComplitedMapTwo = -1;
+        saveInfo.levelIsComplitedMapThree = -1;
         saveInfo.ownedSpaceship = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         Save();
     }
@@ -71,20 +76,44 @@ public class Data : MonoBehaviour
         Save();
     }
 
-    public void CompletedNextLevel()
+    public void CompletedNextLevel(int numberMup)
     {
-        saveInfo.levelIsComplited++;
+        if (numberMup == 1)
+        {
+            saveInfo.levelIsComplitedMapOne++;
+        }
+        if (numberMup == 2)
+        {
+            saveInfo.levelIsComplitedMapTwo++;
+        }
+        if (numberMup == 3)
+        {
+            saveInfo.levelIsComplitedMapThree++;
+        }
         Save();
     }
 
-    public int GetLevelCompleted()
+    public int GetLevelCompleted(int numberMup)
     {
-        return saveInfo.levelIsComplited;
+        if (numberMup == 1)
+        {
+            return saveInfo.levelIsComplitedMapOne;
+        }
+        if (numberMup == 2)
+        {
+            return saveInfo.levelIsComplitedMapTwo;
+        }
+        if (numberMup == 3)
+        {
+            return saveInfo.levelIsComplitedMapThree;
+        }
+        return 0;
     }
 
-    public void AddGold()
+    public void AddGold(int gold)
     {
-        saveInfo.gold++;
+        saveInfo.gold += gold;
+        GoldEarnedPerLevel(gold);
         Save();
     }
 
@@ -102,5 +131,20 @@ public class Data : MonoBehaviour
     {
         string json = File.ReadAllText(filePath);
         return JsonUtility.FromJson<SaveInfo>(json);
+    }
+
+    private void GoldEarnedPerLevel(int priceAsteroid)
+    {
+        currerntGold += priceAsteroid;
+    }
+
+    public int GetGoldEarnedLevel()
+    {
+        return currerntGold;
+    }
+
+    public void ResetCurrentGold()
+    {
+        currerntGold = 0;
     }
 }

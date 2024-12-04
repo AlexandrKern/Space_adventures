@@ -12,8 +12,14 @@ public class InGameManager : MonoBehaviour
     public GameObject deathScreen;
     public GameObject pauseScreen;
     public GameObject levelCompleteScreen;
+    public Button nextLevelButton;
 
     public Text AsteroiToKillText;
+    public Text goldTextGameOver;
+    public Text goldTextLevelCompleted;
+
+    private int goldEarnedPerLevel;
+
 
 
     public void ChangeHealthBar(float currentHealth,float maxHealth)
@@ -82,6 +88,7 @@ public class InGameManager : MonoBehaviour
     public void OpenDeathMenu()
     {
         Time.timeScale = 0;
+        goldTextGameOver.text = "+" + Data.Instance.GetGoldEarnedLevel().ToString();
         deathScreen.SetActive(true);
     }
 
@@ -93,7 +100,26 @@ public class InGameManager : MonoBehaviour
     public void OnLevelCompleteMenu()
     {
         Time.timeScale = 0;
+        goldTextLevelCompleted.text = "+" + Data.Instance.GetGoldEarnedLevel().ToString();
         levelCompleteScreen.SetActive(true);
+        int indexNextScene = SceneManager.GetActiveScene().buildIndex + 1;
+        if (SceneManager.GetActiveScene().buildIndex == 5 || SceneManager.GetActiveScene().buildIndex == 10 )
+        {
+            nextLevelButton.gameObject.SetActive(false);
+        }
+        if (!Utility.SceneExists(indexNextScene))
+        {
+            nextLevelButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnNextLevel()
+    {
+        Time.timeScale = 1;
+        levelCompleteScreen.SetActive(false);
+        GameManager.Instnace.curentLevelIndex++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Data.Instance.ResetCurrentGold();
     }
 
 }

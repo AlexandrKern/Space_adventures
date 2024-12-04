@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    public Transform levelContainer;
+    public Transform levelContainerMapOne;
+    public Transform levelContainerMapTwo;
+    public Transform levelContainerMapThree;
     public RectTransform menuContainer;
     private int screenWidth;
     private int screenHeight;
     public float trasitionTime;
-
+    private int numberMup = 1;
     public Transform transformButtonParent;
+    private GameObject currentScreenMap;
+    public Button previousButton;
 
     private GameObject currentSpaceshipPriview = null;
 
@@ -22,7 +26,9 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        InitButtonLevels();
+        previousButton.interactable = false;
+        currentScreenMap = levelContainerMapOne.gameObject;
+        InitButtonLevels(levelContainerMapOne,numberMup);
         screenWidth = Screen.width;
         screenHeight = Screen.height;
         InitShopButtons();
@@ -36,6 +42,7 @@ public class MenuManager : MonoBehaviour
         {
             currentSpaceshipPriview.transform.Rotate(0, rotationSpaceshipSpeed * Time.deltaTime, 0);
         }
+        
     }
 
     private void UpdateSpaceshipPriview()
@@ -108,9 +115,9 @@ public class MenuManager : MonoBehaviour
        
     }
 
-    private void InitButtonLevels()
+    private void InitButtonLevels(Transform levelContainer,int numberMup)
     {
-        int lastLevelComplited = Data.Instance.GetLevelCompleted();
+        int lastLevelComplited = Data.Instance.GetLevelCompleted(numberMup);
         int i = 0;
         foreach (Transform t in levelContainer)
         {
@@ -133,6 +140,7 @@ public class MenuManager : MonoBehaviour
             }
             i++;
         }
+        Debug.Log("Загруженна карта " + levelContainer.gameObject.name);
     }
 
     private void ChangeMenu(MenuType menuType)
@@ -177,17 +185,20 @@ public class MenuManager : MonoBehaviour
     private void OnLevelSelect(int index)
     {
         GameManager.Instnace.curentLevelIndex = index;
-
         int levelIndex = index + 1;
-        string levelName = "Level_" + levelIndex.ToString();
-        Debug.Log(levelIndex);
-        SceneManager.LoadScene(levelName);
-
+        string levelName = $"Level_{levelIndex}_Map_{numberMup}";
+        //string levelName = "Level_" + levelIndex.ToString();
+        if (Utility.SceneExists(levelName))
+        {
+            Data.Instance.ResetCurrentGold();
+            SceneManager.LoadScene(levelName);
+        }
     }
 
     public void OnPlayButtonClicked()
     {
         Debug.Log("Играть");
+        //InitButtonLevels(levelContainerMapOne, numberMup);
         ChangeMenu(MenuType.Level);
     }
 
@@ -208,6 +219,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnNextMapButtonClicked()
     {
+
         Debug.Log("Следующая карта");
     }
 
@@ -215,6 +227,57 @@ public class MenuManager : MonoBehaviour
     {
         goldText.text = Data.Instance.GetGold().ToString();
     }
+
+    public void OnNextMup()
+    {
+        //int numberMupMultiply = 0;
+        //if (numberMup == 2) numberMupMultiply = 5;
+        //if (numberMup == 3) numberMupMultiply = 10;
+        int lastLevelComplited = Data.Instance.GetLevelCompleted(numberMup);
+        if (lastLevelComplited < 4 /*+ numberMupMultiply*/)
+        {
+            Debug.Log("Невозможно перейти");
+            return;
+        }
+        numberMup++;
+        numberMup = Mathf.Clamp(numberMup, 1, 3);
+      
+
+        previousButton.interactable = numberMup > 0;
+
+        GameManager.Instnace.numberMup = numberMup;
+
+        UpdateCurrentMap();
+    }
+    public void OnPriviousMup()
+    {
+        numberMup--;
+        numberMup = Mathf.Clamp(numberMup, 1, 3);
+        previousButton.interactable = numberMup > 0;
+
+        GameManager.Instnace.numberMup = numberMup;
+
+        UpdateCurrentMap();
+    }
+
+    private void UpdateCurrentMap()
+    {
+        if (currentScreenMap != null)
+        {
+            currentScreenMap.SetActive(false);
+        }
+
+        GameObject[] mapContainers = { levelContainerMapOne.gameObject, levelContainerMapTwo.gameObject, levelContainerMapThree.gameObject };
+
+        if (numberMup > 0 && numberMup <= mapContainers.Length)
+        {
+            GameObject selectedMap = mapContainers[numberMup - 1];
+            InitButtonLevels(selectedMap.transform, numberMup);
+            selectedMap.SetActive(true);
+            currentScreenMap = selectedMap;
+        }
+    }
+
     private enum MenuType
     {
         Main,
