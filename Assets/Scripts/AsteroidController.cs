@@ -5,7 +5,7 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour
 {
     public float moveSpeed;
-
+    public int priceAsteroid;
     private Rigidbody rb;
 
     private Vector3 randomRotation;
@@ -69,8 +69,8 @@ public class AsteroidController : MonoBehaviour
 
     public void DestroyAsteroid()
     {
-        Data.Instance.AddGold();
-        AsteroidManager.Instnace.OnAsteroidKill(gameObject);
+        Data.Instance.AddGold(priceAsteroid);
+        AsteroidManager.Instnace.OnAsteroidKill(gameObject,GameManager.Instnace.numberMup);
         Instantiate(explosion,transform.position,Quaternion.identity);
         AudioManager.Instance.PlaySFX("Explosion");
         Destroy(gameObject);

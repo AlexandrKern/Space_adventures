@@ -57,18 +57,20 @@ public class AsteroidManager : MonoBehaviour
         }
     }
 
-    public void OnAsteroidKill(GameObject asteroid)
+    public void OnAsteroidKill(GameObject asteroid,int numberMup)
     {
         asteroidsToFinish--;
         aliveAsteroids.Remove(asteroid );
         if (asteroidsToFinish <= 0)
         {
-            int thidLevelIndex = GameManager.Instnace.curentLevelIndex;
-            int lastLevelComplited = Data.Instance.GetLevelCompleted();
+            int thisLevelIndex = GameManager.Instnace.curentLevelIndex;
+            Debug.Log("Текцщий уровень " +thisLevelIndex);
+            int lastLevelComplited = Data.Instance.GetLevelCompleted(numberMup);
+            Debug.Log("Последний уровень " + lastLevelComplited);
 
-            if (thidLevelIndex > lastLevelComplited)
+            if (thisLevelIndex > lastLevelComplited)
             {
-                Data.Instance.CompletedNextLevel();
+                Data.Instance.CompletedNextLevel(numberMup);
             }
             inGameManager.OnLevelCompleteMenu();
         }
