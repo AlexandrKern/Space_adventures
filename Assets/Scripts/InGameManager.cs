@@ -12,6 +12,7 @@ public class InGameManager : MonoBehaviour
     public GameObject deathScreen;
     public GameObject pauseScreen;
     public GameObject levelCompleteScreen;
+    public GameObject audioScreen;
     public Button nextLevelButton;
 
     public Text AsteroiToKillText;
@@ -71,12 +72,18 @@ public class InGameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
+        audioScreen.SetActive(false);
     }
 
     public void OnContinueBattonClicked()
     {
         Time.timeScale = 1;
         pauseScreen.SetActive(false);
+    }
+    public void OnAudioScreen()
+    {
+        pauseScreen.SetActive(false);
+        audioScreen.SetActive(true);
     }
 
     public void OnRestartBattonClicked()

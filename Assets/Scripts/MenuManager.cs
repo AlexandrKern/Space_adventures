@@ -9,13 +9,15 @@ public class MenuManager : MonoBehaviour
     public Transform levelContainerMapTwo;
     public Transform levelContainerMapThree;
     public RectTransform menuContainer;
-    private int screenWidth;
-    private int screenHeight;
+    private float screenWidth;
+    private float screenHeight;
     public float trasitionTime;
     private int numberMup = 1;
     public Transform transformButtonParent;
     private GameObject currentScreenMap;
     public Button previousButton;
+
+    public RectTransform canvasRect;
 
     private GameObject currentSpaceshipPriview = null;
 
@@ -29,8 +31,8 @@ public class MenuManager : MonoBehaviour
         previousButton.interactable = false;
         currentScreenMap = levelContainerMapOne.gameObject;
         InitButtonLevels(levelContainerMapOne,numberMup);
-        screenWidth = Screen.width;
-        screenHeight = Screen.height;
+        screenWidth = canvasRect.rect.width;
+        screenHeight = canvasRect.rect.height;
         InitShopButtons();
         UpdateSpaceshipPriview();
         UpdateGoldText();
@@ -146,22 +148,16 @@ public class MenuManager : MonoBehaviour
     private void ChangeMenu(MenuType menuType)
     {
         Vector3 newPos;
+
+        // ¬ычисление позиции в зависимости от типа меню
         if (menuType == MenuType.Level)
-        {
-            newPos = new Vector3(-screenWidth, 0, 0);
-        }
+            newPos = new Vector3(-canvasRect.rect.width, 0, 0);
         else if (menuType == MenuType.Shop)
-        {
-            newPos = new Vector3(screenWidth, 0, 0);
-        }
+            newPos = new Vector3(canvasRect.rect.width, 0, 0);
         else if (menuType == MenuType.Audio)
-        {
-            newPos = new Vector3(0, screenHeight, 0);
-        }
+            newPos = new Vector3(0, canvasRect.rect.height, 0);
         else
-        {
             newPos = Vector3.zero;
-        }
 
         StopAllCoroutines();
         StartCoroutine(ChangeMenuAnimation(newPos));
@@ -180,6 +176,9 @@ public class MenuManager : MonoBehaviour
             menuContainer.anchoredPosition3D = currentPos;
             yield return null;
         }
+
+        // ”бедитесь, что конечна€ позици€ выставлена точно
+        menuContainer.anchoredPosition3D = newPos;
     }
 
     private void OnLevelSelect(int index)

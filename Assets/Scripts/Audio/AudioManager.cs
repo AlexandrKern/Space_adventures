@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
     private Dictionary<string,Sound> _musicDictionary, _sfxDictionary;
 
     private float _masterVolume = 1f; // Общий уровень громкости
-    private float _fadeDuration = 5; // Длительность плавности воспроизведения
+    private float _fadeDuration = 0f; // Длительность плавности воспроизведения
 
     private float _currentMusicVolume;
     private float _musicVolume;
@@ -45,7 +45,7 @@ public class AudioManager : MonoBehaviour
     {
         _musicDictionary = _musicSounds.ToDictionary(s => s.name);
         _sfxDictionary = _sfxSounds.ToDictionary(s => s.name);
-        LoadAllVolumes(); 
+        LoadAllVolumes();
         PlayMusic("BackGroundMusic");
     }
 
@@ -106,6 +106,7 @@ public class AudioManager : MonoBehaviour
         }
 
         PlayerPrefs.SetInt(MUTE, mute ? 1 : 0); 
+        SaveAllVolumes();
     }
 
     /// <summary>
@@ -116,7 +117,8 @@ public class AudioManager : MonoBehaviour
     {
         _currentMusicVolume = volume; 
         _musicSource.volume = volume * _masterVolume; 
-        _musicVolume = volume; 
+        _musicVolume = volume;
+        SaveAllVolumes();
     }
 
     /// <summary>
@@ -126,7 +128,8 @@ public class AudioManager : MonoBehaviour
     public void SFXVolume(float volume)
     {
         _sfxSource.volume = volume * _masterVolume; 
-        _sfxVolume = volume; 
+        _sfxVolume = volume;
+        SaveAllVolumes();
     }
 
     /// <summary>
@@ -136,7 +139,8 @@ public class AudioManager : MonoBehaviour
     public void MasterVolume(float volume)
     {
         _masterVolume = volume; 
-        ApplyMasterVolume(); 
+        ApplyMasterVolume();
+        SaveAllVolumes();
     }
 
     /// <summary>
@@ -185,9 +189,15 @@ public class AudioManager : MonoBehaviour
     {
         _musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1f); 
         _sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1f); 
-        _masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME, 1f); 
+        _masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME, 1f);
+        bool isMuted = PlayerPrefs.GetInt(MUTE, 0) == 1;
+        _musicSource.mute = isMuted;
+        _sfxSource.mute = isMuted;
 
-        _currentMusicVolume = _musicVolume; 
+        if (!isMuted)
+        {
+            _currentMusicVolume = _musicVolume;
+        }
 
         ApplyMasterVolume(); 
     }

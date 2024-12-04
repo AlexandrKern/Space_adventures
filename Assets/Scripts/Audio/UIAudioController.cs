@@ -73,5 +73,8 @@ public class UIAudioController : MonoBehaviour
                 _audioToggle.isOn = PlayerPrefs.GetInt(AudioManager.MUTE) == 1;
             }
         }
+        _musicSlider.interactable = !_audioToggle.isOn;
+        _sfxSlider.interactable = !_audioToggle.isOn;
+        _masterSlider.interactable = !_audioToggle.isOn;
     }
 }
