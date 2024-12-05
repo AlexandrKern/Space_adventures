@@ -1,4 +1,6 @@
+using DG.Tweening;
 using System.Collections;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,7 +8,7 @@ using UnityEngine.UI;
 public class InGameManager : MonoBehaviour
 {
     public PlayerManager playerManager;
-    public Image healtImage;
+    public Image healthImage;
     public float healthBarChangeTime;
 
     public GameObject deathScreen;
@@ -19,7 +21,11 @@ public class InGameManager : MonoBehaviour
     public Text goldTextGameOver;
     public Text goldTextLevelCompleted;
 
-    private int goldEarnedPerLevel;
+
+    public Image backgroundImage; 
+    public float scaleMultiplier = 1.2f; 
+    public Color fullHealthColor = Color.green; 
+    public Color lowHealthColor = Color.red; 
 
 
 
@@ -32,44 +38,63 @@ public class InGameManager : MonoBehaviour
             Invoke("OpenDeathMenu",healthBarChangeTime);
         }
 
-        float healthPac = currentHealth / maxHealth;
-        StartCoroutine(SmoothChangeHeailhBar(healthPac));
+
+        float healthPercent = currentHealth / maxHealth;
+
+        Sequence healthSequence = DOTween.Sequence();
+
+   
+        healthSequence.Append(healthImage.DOFillAmount(healthPercent, healthBarChangeTime)
+            .SetEase(Ease.OutQuad)); 
+
+        
+        Color targetColor = Color.Lerp(lowHealthColor, fullHealthColor, healthPercent);
+        healthSequence.Join(healthImage.DOColor(targetColor, healthBarChangeTime)
+            .SetEase(Ease.Linear));
+
+      
+        backgroundImage.transform.DOScale(Vector3.one * scaleMultiplier, healthBarChangeTime / 2)
+            .SetEase(Ease.OutBack);
+
+        
+        healthSequence.Append(backgroundImage.transform.DOScale(Vector3.one, healthBarChangeTime / 2)
+            .SetEase(Ease.InBack));
+
+       
+        healthSequence.Play();
 
     }
 
-    private IEnumerator SmoothChangeHeailhBar(float newFilAmt)
+    public void OnFireButtonClicked(Button button)
     {
-        float elapsed = 0;
-        float oldFilAmt = healtImage.fillAmount;
+        Transform buttonTransform = button.transform;
+        Sequence fireButtonSequence = DOTween.Sequence();
 
-        while (elapsed <= healthBarChangeTime)
-        {
-            elapsed += Time.deltaTime;
-            float currentFilAmt = Mathf.Lerp(oldFilAmt, newFilAmt, elapsed / healthBarChangeTime);
-            healtImage.fillAmount = currentFilAmt;
-            yield return null;
-        }
-    }
+        fireButtonSequence.Append(buttonTransform.DOScale(Vector3.one * 0.8f, 0.1f)
+            .SetEase(Ease.OutQuad)); 
 
-    public void OnFireButtonClicked()
-    {
+        fireButtonSequence.Append(buttonTransform.DOScale(Vector3.one, 0.1f)
+            .SetEase(Ease.OutQuad)); 
+        fireButtonSequence.Play();
         playerManager.FireRockets();
     }
 
     public void OnMenuBattonClicked()
     {
+        SoundButtonClick();
         Time.timeScale = 1;
         SceneManager.LoadScene("MenuScene");
     }
 
     public void OnQuitBattonClicked()
     {
-
+        SoundButtonClick();
         Application.Quit();
     }
 
     public void OnPauseBattonClicked()
     {
+        SoundButtonClick();
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
         audioScreen.SetActive(false);
@@ -77,17 +102,20 @@ public class InGameManager : MonoBehaviour
 
     public void OnContinueBattonClicked()
     {
+        SoundButtonClick();
         Time.timeScale = 1;
         pauseScreen.SetActive(false);
     }
     public void OnAudioScreen()
     {
+        SoundButtonClick();
         pauseScreen.SetActive(false);
         audioScreen.SetActive(true);
     }
 
     public void OnRestartBattonClicked()
     {
+        SoundButtonClick();
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -120,13 +148,19 @@ public class InGameManager : MonoBehaviour
         }
     }
 
-    public void OnNextLevel()
+    public void OnNextLevelButtonClicked()
     {
+        SoundButtonClick();
         Time.timeScale = 1;
         levelCompleteScreen.SetActive(false);
         GameManager.Instnace.curentLevelIndex++;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Data.Instance.ResetCurrentGold();
+    }
+
+    private void SoundButtonClick()
+    {
+        AudioManager.Instance.PlaySFX("Click");
     }
 
 }

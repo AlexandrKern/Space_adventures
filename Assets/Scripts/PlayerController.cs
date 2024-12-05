@@ -144,8 +144,10 @@ public class PlayerController : MonoBehaviour
 
     public void FireRockets()
     {
+        
         if (canFire)
         {
+            AudioManager.Instance.PlaySFX("Rocket");
             foreach (Transform t in rocketSpawnPoints)
             {
                 Instantiate(rocketPrefub, t.position, Quaternion.identity);
