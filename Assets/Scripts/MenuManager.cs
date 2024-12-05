@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 public class MenuManager : MonoBehaviour
 {
@@ -16,6 +18,11 @@ public class MenuManager : MonoBehaviour
     public Transform transformButtonParent;
     private GameObject currentScreenMap;
     public Button previousButton;
+    public Button nextButton;
+
+    public Color currentCevelButtonColor;
+    public Color passedCevelButtonColor;
+    public Color notPassedtCevelButtonColor;
 
     public RectTransform canvasRect;
 
@@ -65,11 +72,6 @@ public class MenuManager : MonoBehaviour
         foreach (Transform t in transformButtonParent)
         {
             int currentIndex = i;
-            //Texture2D texture = GameManager.Instnace.spaceshipTextures[currentIndex];
-            //Rect newRect = new Rect(0, 0, texture.width, texture.height);
-            //Sprite newSprite = Sprite.Create(texture, newRect, new Vector2(0.5f, 0.5f));
-            //t.GetComponent<Image>().sprite = newSprite;
-
             Button button = t.GetComponent<Button>();
             button.onClick.AddListener(() => OnShopButtonClicked(currentIndex));
 
@@ -90,31 +92,46 @@ public class MenuManager : MonoBehaviour
 
     private void OnShopButtonClicked(int index)
     {
+        AudioManager.Instance.PlaySFX("Click");
+        Transform btnClicked = transformButtonParent.GetChild(index);
+        Button button = btnClicked.GetComponent<Button>();
         if (Data.Instance.IsSpaceshipOwned(index))
         {
             GameManager.Instnace.ChangeCurrentSpaceship(index);
             UpdateSpaceshipPriview();
+            AnimateShopButtonClick(button);
         }
         else
         {
-            int constOfSpaceship = GameManager.Instnace.spaceshipPrice[index];
+            int costOfSpaceship = GameManager.Instnace.spaceshipPrice[index];
             int currentGold = Data.Instance.GetGold();
-            if (currentGold >= constOfSpaceship)
+            if (currentGold >= costOfSpaceship)
             {
-
-                Data.Instance.RemoveGold(constOfSpaceship);
+                Data.Instance.RemoveGold(costOfSpaceship);
                 Data.Instance.PrchaseSpaceship(index);
-                Transform btnClicked = transformButtonParent.GetChild(index);
                 btnClicked.GetChild(0).gameObject.SetActive(false);
-                Button button = btnClicked.GetComponent<Button>();
                 button.image.color = Color.white;
                 GameManager.Instnace.ChangeCurrentSpaceship(index);
                 UpdateSpaceshipPriview();
                 UpdateGoldText();
             }
-        
         }
-       
+
+    }
+
+    private void AnimateShopButtonClick(Button button)
+    {
+        button.transform.DOScale(1.2f, 0.2f)
+            .SetEase(Ease.OutBack) 
+            .OnComplete(() =>
+            {
+                button.transform.DOScale(1f, 0.2f).SetEase(Ease.InBack);
+            });
+        button.image.DOColor(Color.green, 0.2f)
+            .OnComplete(() =>
+            {
+                button.image.DOColor(Color.white, 0.2f);
+            });
     }
 
     private void InitButtonLevels(Transform levelContainer,int numberMup)
@@ -127,29 +144,30 @@ public class MenuManager : MonoBehaviour
             Button button = t.GetComponent<Button>();
             if (currentIndex <= lastLevelComplited)
             {
-                button.onClick.AddListener(() => OnLevelSelect(currentIndex));
-                button.image.color = Color.white;
+                button.onClick.AddListener(() => OnLevelSelect(currentIndex,button));
+                button.image.color = passedCevelButtonColor;
+
             }
             else if (currentIndex == lastLevelComplited + 1)
             {
-                button.onClick.AddListener(() => OnLevelSelect(currentIndex));
-                button.image.color = Color.green;
+                button.onClick.AddListener(() => OnLevelSelect(currentIndex,button));
+                button.image.color = currentCevelButtonColor;
+                
             }
             else
             {
                 button.interactable = false;
-                button.image.color = Color.gray;
+                button.image.color = notPassedtCevelButtonColor;
             }
             i++;
+
         }
-        Debug.Log("Загруженна карта " + levelContainer.gameObject.name);
     }
 
     private void ChangeMenu(MenuType menuType)
     {
         Vector3 newPos;
 
-        // Вычисление позиции в зависимости от типа меню
         if (menuType == MenuType.Level)
             newPos = new Vector3(-canvasRect.rect.width, 0, 0);
         else if (menuType == MenuType.Shop)
@@ -158,35 +176,16 @@ public class MenuManager : MonoBehaviour
             newPos = new Vector3(0, canvasRect.rect.height, 0);
         else
             newPos = Vector3.zero;
-
-        StopAllCoroutines();
-        StartCoroutine(ChangeMenuAnimation(newPos));
+        menuContainer.DOAnchorPos3D(newPos, trasitionTime).SetEase(Ease.InOutQuad);
     }
 
-    private IEnumerator ChangeMenuAnimation(Vector3 newPos)
+    private void OnLevelSelect(int index,Button button)
     {
-        float elapsed = 0;
-        Vector3 oldPos = menuContainer.anchoredPosition3D;
-
-        while (elapsed <= trasitionTime)
-        {
-            elapsed += Time.deltaTime;
-
-            Vector3 currentPos = Vector3.Lerp(oldPos, newPos, elapsed / trasitionTime);
-            menuContainer.anchoredPosition3D = currentPos;
-            yield return null;
-        }
-
-        // Убедитесь, что конечная позиция выставлена точно
-        menuContainer.anchoredPosition3D = newPos;
-    }
-
-    private void OnLevelSelect(int index)
-    {
+        AudioManager.Instance.PlaySFX("Click");
+        AnimateLevelButtonClick(button);
         GameManager.Instnace.curentLevelIndex = index;
         int levelIndex = index + 1;
         string levelName = $"Level_{levelIndex}_Map_{numberMup}";
-        //string levelName = "Level_" + levelIndex.ToString();
         if (Utility.SceneExists(levelName))
         {
             Data.Instance.ResetCurrentGold();
@@ -194,32 +193,27 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void OnPlayButtonClicked()
+    public void OnPlayButtonClicked(Button button)
     {
-        Debug.Log("Играть");
-        //InitButtonLevels(levelContainerMapOne, numberMup);
+        AnimateMenuButtonClick(button);
         ChangeMenu(MenuType.Level);
     }
 
-    public void OnMainMenuButtonClicked()
+    public void OnMainMenuButtonClicked(Button button)
     {
-        Debug.Log("Меню");
+        AnimateMenuButtonClick(button);
         ChangeMenu(MenuType.Main);
     }
-    public void OnShopMenuButtonClicked()
+    public void OnShopMenuButtonClicked(Button button)
     {
+        AnimateMenuButtonClick(button);
         ChangeMenu(MenuType.Shop);
     }
 
-    public void OnAudioMenuButtonClicked()
+    public void OnAudioMenuButtonClicked(Button button)
     {
+        AnimateMenuButtonClick(button);
         ChangeMenu (MenuType.Audio);
-    }
-
-    public void OnNextMapButtonClicked()
-    {
-
-        Debug.Log("Следующая карта");
     }
 
     private void UpdateGoldText()
@@ -227,36 +221,61 @@ public class MenuManager : MonoBehaviour
         goldText.text = Data.Instance.GetGold().ToString();
     }
 
-    public void OnNextMup()
+    public void OnNextMupButtonClicked(Button button)
     {
-        //int numberMupMultiply = 0;
-        //if (numberMup == 2) numberMupMultiply = 5;
-        //if (numberMup == 3) numberMupMultiply = 10;
+        AnimateMenuButtonClick(button);
         int lastLevelComplited = Data.Instance.GetLevelCompleted(numberMup);
-        if (lastLevelComplited < 4 /*+ numberMupMultiply*/)
+        if (lastLevelComplited < 4 )
         {
-            Debug.Log("Невозможно перейти");
             return;
         }
         numberMup++;
         numberMup = Mathf.Clamp(numberMup, 1, 3);
-      
 
-        previousButton.interactable = numberMup > 0;
+        OnButtonInteracteble();
 
+        GameManager.Instnace.numberMup = numberMup;
+
+        UpdateCurrentMap();
+
+    }
+    public void OnPriviousMupButtonClicked(Button button)
+    {
+        AnimateMenuButtonClick(button);
+        numberMup--;
+        numberMup = Mathf.Clamp(numberMup, 1, 3);
+        OnButtonInteracteble();
+ 
+        Debug.Log(numberMup);
         GameManager.Instnace.numberMup = numberMup;
 
         UpdateCurrentMap();
     }
-    public void OnPriviousMup()
+
+    private void AnimateMenuButtonClick(Button button)
     {
-        numberMup--;
-        numberMup = Mathf.Clamp(numberMup, 1, 3);
-        previousButton.interactable = numberMup > 0;
+        AudioManager.Instance.PlaySFX("Click");
+        Transform buttonTransform = button.transform;
 
-        GameManager.Instnace.numberMup = numberMup;
+        // Последовательность анимаций с использованием DOTween
+        Sequence buttonSequence = DOTween.Sequence();
 
-        UpdateCurrentMap();
+        buttonSequence
+            // Уменьшение кнопки
+            .Append(buttonTransform.DOScale(0.9f, 0.1f).SetEase(Ease.InOutQuad))
+            // Увеличение с "прыжком"
+            .Append(buttonTransform.DOScale(1.1f, 0.2f).SetEase(Ease.OutBounce))
+            // Возвращение к исходному размеру
+            .Append(buttonTransform.DOScale(1f, 0.1f).SetEase(Ease.InOutQuad))
+            // Добавим небольшой поворот для акцента
+            .Join(buttonTransform.DORotate(new Vector3(0, 0, 15f), 0.2f).SetEase(Ease.InOutQuad))
+            .Append(buttonTransform.DORotate(Vector3.zero, 0.2f).SetEase(Ease.InOutQuad))
+            // Меняем прозрачность (альфа-канал)
+            .Join(button.image.DOFade(0.8f, 0.1f))
+            .Append(button.image.DOFade(1f, 0.1f));
+
+        // (Опционально) Воспроизведение звука нажатия кнопки
+        // AudioManager.Instance.Play("ButtonClick");
     }
 
     private void UpdateCurrentMap()
@@ -285,5 +304,22 @@ public class MenuManager : MonoBehaviour
         Audio
     }
 
+    private void OnButtonInteracteble()
+    {
+        previousButton.interactable = !(numberMup == 1);
+        nextButton.interactable = !(numberMup == 3);
+    }
 
+    private void AnimateLevelButtonClick(Button button)
+    {
+        Transform buttonTransform = button.transform;
+        Sequence fireButtonSequence = DOTween.Sequence();
+
+        fireButtonSequence.Append(buttonTransform.DOScale(Vector3.one * 0.1f, 0.1f)
+            .SetEase(Ease.OutQuad));
+
+        fireButtonSequence.Append(buttonTransform.DOScale(Vector3.one, 0.1f)
+            .SetEase(Ease.OutQuad));
+        fireButtonSequence.Play();
+    }
 }

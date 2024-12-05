@@ -64,15 +64,13 @@ public class AsteroidManager : MonoBehaviour
         if (asteroidsToFinish <= 0)
         {
             int thisLevelIndex = GameManager.Instnace.curentLevelIndex;
-            Debug.Log("Текцщий уровень " +thisLevelIndex);
             int lastLevelComplited = Data.Instance.GetLevelCompleted(numberMup);
-            Debug.Log("Последний уровень " + lastLevelComplited);
-
             if (thisLevelIndex > lastLevelComplited)
             {
                 Data.Instance.CompletedNextLevel(numberMup);
             }
             inGameManager.OnLevelCompleteMenu();
+            inGameManager.ChangeAsteroidKillCount(asteroidsToFinish);
         }
         else
         {

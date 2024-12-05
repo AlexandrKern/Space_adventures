@@ -9,33 +9,48 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Level_1_Map_1.unity
+    path: Assets/Scenes/MapOne/Level_1_Map_1.unity
     guid: 0097fcf0ce2ddc5469883bd1f1952078
   - enabled: 1
-    path: Assets/Scenes/Level_2_Map_1.unity
-    guid: b5729ec08e4360945b176c714fa33d63
+    path: Assets/Scenes/MapOne/Level_2_Map_1.unity
+    guid: b76c07858ead09c4db20ebbbafc8967d
   - enabled: 1
-    path: Assets/Scenes/Level_3_Map_1.unity
-    guid: d8e7d024b2d8cfc4eab60b5796b93d63
+    path: Assets/Scenes/MapOne/Level_3_Map_1.unity
+    guid: 0583444ef6985d14180bf268039805d8
   - enabled: 1
-    path: Assets/Scenes/Level_4_Map_1.unity
-    guid: 328d1bdb9553646448bd8eb553e2fd9e
+    path: Assets/Scenes/MapOne/Level_4_Map_1.unity
+    guid: 29abd57090301b64f80ba15268e339f8
   - enabled: 1
-    path: Assets/Scenes/Level_5_Map_1.unity
-    guid: b1f7a0f6997615a4e93b2be59ba04da6
+    path: Assets/Scenes/MapOne/Level_5_Map_1.unity
+    guid: 6546731d92079f247b874e6b92b0892a
   - enabled: 1
     path: Assets/Scenes/MapTwo/Level_1_Map_2.unity
-    guid: f306eb9860f2cae4b9fc882006fbc90d
+    guid: 58ceaf0b1be82804fb68c3a48d3b5ee5
   - enabled: 1
     path: Assets/Scenes/MapTwo/Level_2_Map_2.unity
-    guid: b729ad57f4d5ced4da9e2447b7a97b66
+    guid: df17922ea778094489ce40febf08c30b
   - enabled: 1
     path: Assets/Scenes/MapTwo/Level_3_Map_2.unity
-    guid: fdc3edbb83c62454d9b82c03af4098f9
+    guid: f63e108ab08a0fc4b8ddb668d6d82483
   - enabled: 1
     path: Assets/Scenes/MapTwo/Level_4_Map_2.unity
-    guid: 6dd458ca66a78364488d6d28d1312545
+    guid: 6276128f0f35f1a48bb5b2d4bec75921
   - enabled: 1
     path: Assets/Scenes/MapTwo/Level_5_Map_2.unity
-    guid: ebc0e04e90bce454792048a392d307d5
+    guid: 4abe92ac59475bb4fa434cf32d03cbde
+  - enabled: 1
+    path: Assets/Scenes/MapThree/Level_1_Map_3.unity
+    guid: d33d869a438cc8f4e951b06c14cf486c
+  - enabled: 1
+    path: Assets/Scenes/MapThree/Level_2_Map_3.unity
+    guid: 1a34928a0c75e1e4d9eca2979302e46a
+  - enabled: 1
+    path: Assets/Scenes/MapThree/Level_3_Map_3.unity
+    guid: 0b5571037e22e3b4b9784a26d209a7e8
+  - enabled: 1
+    path: Assets/Scenes/MapThree/Level_4_Map_3.unity
+    guid: c34c2ace40d56e544b86efaae1b685ef
+  - enabled: 1
+    path: Assets/Scenes/MapThree/Level_5_Map_3.unity
+    guid: 23bd7930818ea1f4d91761232a8daa2d
   m_configObjects: {}
