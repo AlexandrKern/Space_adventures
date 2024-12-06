@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3148069197483019184
 Transform:
   m_ObjectHideFlags: 0
@@ -54,10 +54,10 @@ Transform:
   - {fileID: 5429480137203557038}
   - {fileID: 154633525545404741}
   - {fileID: 1063194770085679048}
-  - {fileID: 6648981443249430977}
-  - {fileID: 3104110337719138989}
-  - {fileID: 7026889874695557395}
-  - {fileID: 2123186267741393949}
+  - {fileID: 7040132589528475695}
+  - {fileID: 7793889913756512442}
+  - {fileID: 4300941576941800630}
+  - {fileID: 1626950434465497322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4105174597770683134
@@ -101,10 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocketPrefub: {fileID: 4114084097677581156, guid: 76b488139379f944dba4a03938dc74d2, type: 3}
   rocketSpawnPoints:
-  - {fileID: 6648981443249430977}
-  - {fileID: 2123186267741393949}
-  - {fileID: 3104110337719138989}
-  - {fileID: 2123186267741393949}
+  - {fileID: 7040132589528475695}
+  - {fileID: 7793889913756512442}
+  - {fileID: 4300941576941800630}
+  - {fileID: 1626950434465497322}
   fireInterval: 1
   input: {fileID: 0}
   moveSpeed: 23
@@ -134,7 +134,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.7839966, y: 1.5320842, z: 5.791962}
   m_Center: {x: 0.044128418, y: -0.2751745, z: 3.0020068}
---- !u!1 &1424670328481390083
+--- !u!1 &1733771503372062862
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,30 +142,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6648981443249430977}
+  - component: {fileID: 4300941576941800630}
   m_Layer: 0
-  m_Name: RocketPoint (25)
+  m_Name: SpawnRoccet (2)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6648981443249430977
+--- !u!4 &4300941576941800630
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424670328481390083}
+  m_GameObject: {fileID: 1733771503372062862}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.19, y: 1.190022, z: -1.77}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.25, y: -1.76, z: -1.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3148069197483019184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1698326118677791427
+--- !u!1 &4787124252881812594
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,30 +173,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2123186267741393949}
+  - component: {fileID: 1626950434465497322}
   m_Layer: 0
-  m_Name: RocketPoint (26)
+  m_Name: SpawnRoccet (3)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2123186267741393949
+--- !u!4 &1626950434465497322
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1698326118677791427}
+  m_GameObject: {fileID: 4787124252881812594}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.21, y: 1.19, z: -1.77}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.25, y: -1.76, z: -1.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3148069197483019184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3163264335779324766
+--- !u!1 &6030831899886260709
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,30 +204,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3104110337719138989}
+  - component: {fileID: 7793889913756512442}
   m_Layer: 0
-  m_Name: RocketPoint (27)
+  m_Name: SpawnRoccet (1)
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3104110337719138989
+--- !u!4 &7793889913756512442
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3163264335779324766}
+  m_GameObject: {fileID: 6030831899886260709}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.23, y: -1.72, z: -1.18}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.18, y: 1.2, z: -1.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3148069197483019184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9025342800409180816
+--- !u!1 &7507928122228660839
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,24 +235,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7026889874695557395}
+  - component: {fileID: 7040132589528475695}
   m_Layer: 0
-  m_Name: RocketPoint (28)
+  m_Name: SpawnRoccet
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7026889874695557395
+--- !u!4 &7040132589528475695
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9025342800409180816}
+  m_GameObject: {fileID: 7507928122228660839}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.23, y: -1.72, z: -1.18}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.18, y: 1.2, z: -1.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

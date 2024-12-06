@@ -23,9 +23,7 @@ public class PlayerManager : MonoBehaviour
     private void SetCurrentSpaceship()
     {
         int currentSpaceshipIndex = GameManager.Instnace.CurrentSpaceshipIndex;
-
         int i = 0;
-
         foreach (Transform spaceship in transform)
         {
             int currentIndex = i;
