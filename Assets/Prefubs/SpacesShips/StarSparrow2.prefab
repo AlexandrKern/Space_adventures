@@ -103,7 +103,7 @@ MonoBehaviour:
   maxRotation: 25
   maxHealth: 10
   inGameManager: {fileID: 0}
-  raycastDisnance: 100
+  raycastDisnance: 150
   priviousTargets: []
 --- !u!65 &1236283627508899852
 BoxCollider:
@@ -124,8 +124,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.138856, y: 1.4003928, z: 6.6606407}
-  m_Center: {x: -0.023180485, y: -0.53816414, z: 3.7998953}
+  m_Size: {x: 4.1082153, y: 1.4003928, z: 6.6606407}
+  m_Center: {x: 0.02420044, y: -0.53816414, z: 3.7998953}
 --- !u!1 &1163329898060131640
 GameObject:
   m_ObjectHideFlags: 0

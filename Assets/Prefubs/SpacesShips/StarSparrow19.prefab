@@ -105,13 +105,13 @@ MonoBehaviour:
   - {fileID: 2123186267741393949}
   - {fileID: 3104110337719138989}
   - {fileID: 2123186267741393949}
-  fireInterval: 2
+  fireInterval: 1
   input: {fileID: 0}
-  moveSpeed: 20
+  moveSpeed: 23
   maxRotation: 25
-  maxHealth: 10
+  maxHealth: 17
   inGameManager: {fileID: 0}
-  raycastDisnance: 100
+  raycastDisnance: 150
   priviousTargets: []
 --- !u!65 &2562131807734939664
 BoxCollider:
@@ -132,8 +132,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.2332172, y: 1.5320842, z: 5.791962}
-  m_Center: {x: -0.43780625, y: -0.2751745, z: 3.0020068}
+  m_Size: {x: 4.7839966, y: 1.5320842, z: 5.791962}
+  m_Center: {x: 0.044128418, y: -0.2751745, z: 3.0020068}
 --- !u!1 &1424670328481390083
 GameObject:
   m_ObjectHideFlags: 0

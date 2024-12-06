@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 200
-  priceAsteroid: 50
+  priceAsteroid: 13
   targetMaterial: {fileID: 2100000, guid: 2841537dc811d1642b25d74f7c12ffa8, type: 2}
   explosion: {fileID: 1481465992696756838, guid: fc56c36fc7d7710408276b4e066a62a7, type: 3}
 --- !u!54 &-6545569927269598420

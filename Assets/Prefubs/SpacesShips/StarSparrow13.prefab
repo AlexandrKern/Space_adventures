@@ -96,9 +96,9 @@ MonoBehaviour:
   input: {fileID: 0}
   moveSpeed: 20
   maxRotation: 25
-  maxHealth: 10
+  maxHealth: 15
   inGameManager: {fileID: 0}
-  raycastDisnance: 100
+  raycastDisnance: 150
   priviousTargets: []
 --- !u!65 &7397013140666269705
 BoxCollider:
