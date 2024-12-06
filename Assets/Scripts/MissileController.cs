@@ -27,6 +27,5 @@ public class MissileController : MonoBehaviour
             other.GetComponent<AsteroidController>().DestroyAsteroid();
             Destroy(gameObject);
         }
-      
     }
 }

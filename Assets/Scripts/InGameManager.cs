@@ -10,24 +10,18 @@ public class InGameManager : MonoBehaviour
     public PlayerManager playerManager;
     public Image healthImage;
     public float healthBarChangeTime;
-
     public GameObject deathScreen;
     public GameObject pauseScreen;
     public GameObject levelCompleteScreen;
     public GameObject audioScreen;
     public Button nextLevelButton;
-
     public Text AsteroiToKillText;
     public Text goldTextGameOver;
     public Text goldTextLevelCompleted;
-
-
     public Image backgroundImage; 
     public float scaleMultiplier = 1.2f; 
     public Color fullHealthColor = Color.green; 
     public Color lowHealthColor = Color.red; 
-
-
 
     public void ChangeHealthBar(float currentHealth,float maxHealth)
     {
@@ -37,42 +31,26 @@ public class InGameManager : MonoBehaviour
         {
             Invoke("OpenDeathMenu",healthBarChangeTime);
         }
-
-
         float healthPercent = currentHealth / maxHealth;
-
         Sequence healthSequence = DOTween.Sequence();
-
-   
         healthSequence.Append(healthImage.DOFillAmount(healthPercent, healthBarChangeTime)
             .SetEase(Ease.OutQuad)); 
-
-        
         Color targetColor = Color.Lerp(lowHealthColor, fullHealthColor, healthPercent);
         healthSequence.Join(healthImage.DOColor(targetColor, healthBarChangeTime)
             .SetEase(Ease.Linear));
-
-      
         backgroundImage.transform.DOScale(Vector3.one * scaleMultiplier, healthBarChangeTime / 2)
             .SetEase(Ease.OutBack);
-
-        
         healthSequence.Append(backgroundImage.transform.DOScale(Vector3.one, healthBarChangeTime / 2)
             .SetEase(Ease.InBack));
-
-       
         healthSequence.Play();
-
     }
 
     public void OnFireButtonClicked(Button button)
     {
         Transform buttonTransform = button.transform;
         Sequence fireButtonSequence = DOTween.Sequence();
-
         fireButtonSequence.Append(buttonTransform.DOScale(Vector3.one * 0.8f, 0.1f)
             .SetEase(Ease.OutQuad)); 
-
         fireButtonSequence.Append(buttonTransform.DOScale(Vector3.one, 0.1f)
             .SetEase(Ease.OutQuad)); 
         fireButtonSequence.Play();
@@ -162,5 +140,4 @@ public class InGameManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX("Click");
     }
-
 }

@@ -6,7 +6,6 @@ public class AsteroidManager : MonoBehaviour
 {
     #region Singleton
     public static AsteroidManager Instnace;
-
     private void Awake()
     {
         if (Instnace == null)
@@ -18,29 +17,21 @@ public class AsteroidManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
     #endregion
 
     public GameObject[] asteroidPrefubs;
     public float asteroidSpawnDistace;
-
     public float spawnTime;
-
     private float time;
-
     public int asteroidsToFinish = 3;
     public float speedIncrease = 5f;
     private int asteroidCaunter = 0;
     public InGameManager inGameManager;
-
     [HideInInspector] public float minX;
     [HideInInspector] public float maxX;
     [HideInInspector] public float minY;
     [HideInInspector] public float maxY;
-
     [HideInInspector] public List<GameObject> aliveAsteroids = new List<GameObject>();
-
     private void Start()
     {
         time = spawnTime;
@@ -82,13 +73,10 @@ public class AsteroidManager : MonoBehaviour
     {
         float newX = Random.Range(minX, maxX);
         float newY = Random.Range(minY, maxY);
-
         Vector3 spawnPos = new Vector3(newX, newY,asteroidSpawnDistace);
-
         GameObject go = Instantiate(asteroidPrefubs[Random.Range(0,asteroidPrefubs.Length)],spawnPos,Quaternion.identity);
         go.GetComponent<AsteroidController>().IncreaseSpeed(asteroidCaunter * speedIncrease);
         asteroidCaunter++;
-
         aliveAsteroids.Add(go);
     }
 

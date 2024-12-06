@@ -19,16 +19,11 @@ public class GameManager : MonoBehaviour
         {
             Instnace = this;
         }
-
-        //spaceshipTextures = new Texture2D[spaceshipPrefubs.Length];
-        //for (int i = 0; i < spaceshipPrefubs.Length; i++)
-        //{
-        //    GameObject prefub = spaceshipPrefubs[i];
-        //    Texture2D texture = AssetPreview.GetAssetPreview(prefub);
-        //    spaceshipTextures[i] = texture;
-        //}
         DontDestroyOnLoad(gameObject);
-       
+    }
+    private void Start()
+    {
+        currentSpaceshipIndex = Data.Instance.GetCurrentSpaceship();
     }
 
     public void ChangeCurrentSpaceship(int index)

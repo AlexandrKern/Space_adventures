@@ -25,7 +25,6 @@ public class Data : MonoBehaviour
     {
         string serializeObj = Serialize(saveInfo);
         File.WriteAllText(filePath, serializeObj);
-        Debug.Log("Сохранился");
     }
 
     private void Load()
@@ -36,7 +35,6 @@ public class Data : MonoBehaviour
         }
         else
         {
-            Debug.Log("Создан файл сохранения");
             saveInfo = new SaveInfo();
             Save();
         }
@@ -49,6 +47,7 @@ public class Data : MonoBehaviour
         saveInfo.levelIsComplitedMapTwo = -1;
         saveInfo.levelIsComplitedMapThree = -1;
         saveInfo.ownedSpaceship = new int[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        saveInfo.currentSpaceship = 0;
         Save();
     }
 
@@ -146,5 +145,15 @@ public class Data : MonoBehaviour
     public void ResetCurrentGold()
     {
         currerntGold = 0;
+    }
+
+    public void SetCurrentSpaceship(int index)
+    {
+        saveInfo.currentSpaceship = index;
+        Save();
+    }
+    public int GetCurrentSpaceship()
+    {
+        return saveInfo.currentSpaceship;
     }
 }
