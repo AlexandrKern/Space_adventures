@@ -104,13 +104,13 @@ MonoBehaviour:
   rocketSpawnPoints:
   - {fileID: 4976554209621522497}
   - {fileID: 1965530740507013586}
-  fireInterval: 2
+  fireInterval: 1.7
   input: {fileID: 0}
-  moveSpeed: 20
+  moveSpeed: 21
   maxRotation: 25
-  maxHealth: 10
+  maxHealth: 11
   inGameManager: {fileID: 0}
-  raycastDisnance: 100
+  raycastDisnance: 150
   priviousTargets: []
 --- !u!65 &4647843231976356770
 BoxCollider:
@@ -131,8 +131,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8.199411, y: 1.6331029, z: 6.6177297}
-  m_Center: {x: -0.024884224, y: 0.1982224, z: 3.4148905}
+  m_Size: {x: 7.442108, y: 1.6331029, z: 6.6177297}
+  m_Center: {x: 0.04396057, y: 0.1982224, z: 3.4148905}
 --- !u!1 &4524103444167716046
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,13 +120,13 @@ MonoBehaviour:
   rocketSpawnPoints:
   - {fileID: 6232389896412029128}
   - {fileID: 7747312798747889513}
-  fireInterval: 2
+  fireInterval: 1
   input: {fileID: 0}
-  moveSpeed: 20
+  moveSpeed: 25
   maxRotation: 25
-  maxHealth: 10
+  maxHealth: 15
   inGameManager: {fileID: 0}
-  raycastDisnance: 100
+  raycastDisnance: 150
   priviousTargets: []
 --- !u!65 &2201796881353681769
 BoxCollider:

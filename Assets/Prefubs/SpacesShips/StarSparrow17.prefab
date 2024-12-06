@@ -189,13 +189,13 @@ MonoBehaviour:
   - {fileID: 5017562155529212102}
   - {fileID: 6688070281092943799}
   - {fileID: 359186908659545070}
-  fireInterval: 2
+  fireInterval: 1.5
   input: {fileID: 0}
-  moveSpeed: 20
+  moveSpeed: 19
   maxRotation: 25
-  maxHealth: 10
+  maxHealth: 20
   inGameManager: {fileID: 0}
-  raycastDisnance: 100
+  raycastDisnance: 150
   priviousTargets: []
 --- !u!65 &5758915137456356493
 BoxCollider:
